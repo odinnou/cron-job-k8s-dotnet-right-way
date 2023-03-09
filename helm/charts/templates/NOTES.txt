@@ -1,0 +1,6 @@
+{{ .Values.environment.JOB }} CRON JOB INSTALLED !
+  
+A CronJob will run with schedule {{ .Values.schedule }}, denoted in UTC
+
+It will keep {{ .Values.failedJobsHistoryLimit }} failed Job(s) and {{ .Values.successfulJobsHistoryLimit }} successful Job(s).
+See the logs of the Pod associated to each Job to see result.

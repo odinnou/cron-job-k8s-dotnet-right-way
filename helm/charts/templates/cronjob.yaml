@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.nameOverride }}
+  labels:
+    {{- include "microservice.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
+  jobTemplate:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "microservice.selectorLabels" . | nindent 8 }}
+    spec:
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          serviceAccountName: {{ include "microservice.serviceAccountName" . }}
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                {{- range $key, $value := .Values.environment }}
+                - name: {{ $key }}
+                  value: {{ $value | quote }}
+                {{- end }}
+              resources:
+                limits: 
+                  memory: {{ .Values.resources.limits.memory }}
+                  cpu: {{ .Values.resources.limits.cpu }}
+                requests:
+                  memory: {{ .Values.resources.requests.memory }}
+                  cpu: {{ .Values.resources.requests.cpu }}
+          restartPolicy: {{ .Values.restartPolicy }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}      
+      backoffLimit: {{ .Values.backoffLimit }}
