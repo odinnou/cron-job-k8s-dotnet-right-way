@@ -8,7 +8,7 @@ public class TestContainerConfiguration : IDisposable
 
     public TestContainerConfiguration()
     {
-        MockServer = new DockerEnvironmentBuilder().SetName("panda-mockserver-test")
+        MockServer = new DockerEnvironmentBuilder().SetName("mockserver-test")
               .AddContainer(container => container with
               {
                   Name = "mockserver",
