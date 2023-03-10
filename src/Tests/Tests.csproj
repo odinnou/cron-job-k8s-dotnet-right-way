@@ -11,9 +11,9 @@
 
     <ItemGroup>
         <PackageReference Include="MELT" Version="0.8.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
         <PackageReference Include="MELT.Serilog" Version="0.8.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         <PackageReference Include="MockServerClientNet" Version="1.2.0" />
         <PackageReference Include="TestEnvironment.Docker" Version="2.1.4" />
         <PackageReference Include="TngTech.ArchUnitNET.xUnit" Version="0.10.5" />
@@ -22,8 +22,8 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
-        <PackageReference Include="FluentAssertions" Version="6.9.0" />
+        <PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
+        <PackageReference Include="FluentAssertions" Version="6.10.0" />
         <PackageReference Include="Moq" Version="4.18.4" />
     </ItemGroup>
 
