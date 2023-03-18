@@ -1,0 +1,51 @@
+imagePullSecrets: []
+# different name for each job
+nameOverride: "scheduled-job-test"
+fullnameOverride: ""
+schedule: "*/5 * * * *" # every 5 minutes
+concurrencyPolicy: "Forbid"
+failedJobsHistoryLimit: 1
+successfulJobsHistoryLimit: 1
+backoffLimit: 0
+restartPolicy: "Never"
+
+image:
+  # always use the same image (one docker image but several job, and also several deployment)
+  repository: "${repository}/scheduled-job"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "${TAGIMAGE}"
+
+environment:
+  JOB : "TestJob"
+  TEST_ENDPOINT_BASE_URL : "${scheduled-job-test-base-url}"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 0.3Gi
+  requests:
+    cpu: 100m
+    memory: 0.15Gi
+
+nodeSelector:
+  ms: all
+
+tolerations: []
+
+affinity: {}
