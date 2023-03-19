@@ -4,7 +4,7 @@ services:
   runner:
     image: runner:${TAG:-latest}
     environment:
-      - JOB=job_to_execute
+      - JOB=TestJob
       - TEST_ENDPOINT_BASE_URL=https://sample-service.com/
     build:
       context: .
