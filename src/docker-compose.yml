@@ -4,7 +4,9 @@ services:
   runner:
     image: runner:${TAG:-latest}
     environment:
+      # specify the job type to execute
       - JOB=TestJob
+      # add other configuration variables
       - TEST_ENDPOINT_BASE_URL=https://sample-service.com/
     build:
       context: .
